@@ -1,0 +1,62 @@
+#include </Library/Developer/CommandLineTools/usr/include/c++/v1/bits/stdc++.h>
+#define pb push_back
+#define ll long long
+using namespace std;
+ll a[1000],n;
+void heapify(ll arr[], ll n, ll i){
+    ll leftchild=2*i+1;
+    ll rightchild=2*i+2;
+    ll largest=i;
+    if(leftchild<n && arr[leftchild]>arr[largest]){
+        largest=leftchild;
+    }
+    if(rightchild<n && arr[rightchild]>arr[largest]){
+        largest=rightchild;
+    }
+    if(i!=largest){
+        swap(arr[i],arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+void heapsort(ll arr[],ll n,ll i){
+    for(ll j=(n/2)-1;j>=0;j--){
+        heapify(a, n, j);
+    }
+}
+void show(ll arr[],ll n){
+    for(ll j=0;j<n;j++){
+        cout<<arr[j]<<" ";
+    }
+}
+void insert_queue(ll t){
+    a[n]=t;
+    n++;
+    heapsort(a,n,0);
+    show(a, n);
+}
+void extract_max(){
+    heapsort(a, n, 0);
+    swap(a[0],a[n-1]);
+    n--;
+    heapsort(a, n, 0);
+}
+void remove(ll t){
+    heapsort(a, n, 0);
+    swap(a[t+1],a[0]);
+    n--;
+    heapsort(a, n, 0);
+    show(a,n);
+}
+void change_value(ll t, ll p){
+    heapsort(a, n, 0);
+    a[t+1]=p;
+    heapsort(a, n, 0);
+    show(a,n);
+}
+int main () {
+    cin>>n;
+    for(ll j=0;j<n;j++){
+        cin>>a[j];
+    }
+    change_value(2,1999);
+}
